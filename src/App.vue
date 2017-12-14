@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="dell" @click="handleClick">{{message}}</div>
+  <router-view/>
   </div>
 </template>
 
