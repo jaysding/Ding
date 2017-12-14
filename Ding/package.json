@@ -69,5 +69,15 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mumuxiwang/vue-project.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mumuxiwang/vue-project/issues"
+  },
+  "homepage": "https://github.com/mumuxiwang/vue-project#readme"
 }
