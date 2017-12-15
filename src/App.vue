@@ -1,28 +1,11 @@
 <template>
-  <div id="app">
-    <div class="dell" @click="handleClick">{{message}}</div>
-  <router-view/>
-  </div>
+  <router-view></router-view>
 </template>
-
 <script>
   export default {
-    name: 'app',
-    data () {
-      return {
-        message: 'hello world'
-      }
-    },
-    methods: {
-      handleClick () {
-        this.message = 'bye world'
-      }
-    }
+    name: 'app'
   }
 </script>
 
 <style scoped>
-  .dell {
-    color: red;
-  }
 </style>
