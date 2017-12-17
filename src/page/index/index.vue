@@ -35,8 +35,7 @@
         <li class="promotion-item">
           <a href="#" class="geolocation iconfont">&#xe611;定位失败</a>
         </li>
-        <div class="promotion-solid-vertical"></div>
-        <li class="promotion-item">
+        <li class="promotion-item promotion-item2">
           <a href="#" class="hot-spring iconfont">&#xe62e;5折泡温泉</a>
         </li>
       </ul>
@@ -47,7 +46,6 @@
         <li class="discount-water">
           <a href="#"></a>
         </li>
-        <div class="promotion-solid-vertical"></div>
         <li class="discount-tickies">
           <a href="#"></a>
         </li>
@@ -60,18 +58,36 @@
       <div class="hot-bottom">
         <ul class="hot-box">
           <li class="hot-item" v-for="hitem in hotlist" :key="hitem.id">
-            <div class="hot-item-box">
+            <a class="hot-item-box" href="#">
               <div class="hot-img-con">
-                <img src="hitem.imgUrl">
+                <img :src="hitem.imgUrl" class="hot-img">
               </div>
               <div class="hot-introduce">
-                <span class="hitem-name">{{hitem.name}}</span>
-                <span class="hitem-explain">{{hitem.explain}}</span>
-                <span class="hitem-price">{{hitem.price}}</span>
+                <div class="hitem-name">{{hitem.name}}</div>
+                <div class="hitem-explain">{{hitem.explain}}</div>
+                <div class="hitem-price-box">
+                  <span class="iconfont hitem-price">&#xe607;{{hitem.price}}</span>
+                  <span class="qi">起</span>
+                </div>
               </div>
-          </div>
+          </a>
           </li>
+          <div class="more">
+            <a class="lookat" href="#">查看所有产品</a>
+          </div>
         </ul>
+      </div>
+      <div class="weekendgo">
+        <span class="wherego">周末去哪</span>
+        <li class="weekitem" v-for="(item, index) in weekendlist" :key="item.id">
+          <div class="weekimg-con">
+            <img :src="item.imgUrl" class="week-img">
+          </div>
+          <div class="week-intro">
+            <span class="scenic-name">{{item.name}}</span>
+            <span class="scenic-intro">{{item.explain}}</span>
+          </div>
+        </li>
       </div>
     </div>  
   </div>
@@ -84,6 +100,8 @@ export default {
     return {
       iconInfo: [],
       swiperInfo: [],
+      hotlist: [],
+      weekendlist: [],
       swiperOption: {
         autoplay: 1000,
         pagination: '.swiper-pagination',
@@ -117,6 +135,8 @@ export default {
       if (body && body.data && body.data.swiper) {
         this.swiperInfo = body.data.swiper
         this.iconInfo = body.data.icons
+        this.hotlist = body.data.hitem
+        this.weekendlist = body.data.weekend
       }
     }
   },
@@ -223,7 +243,19 @@ export default {
     position: relative;
     display: flex;
   }
-
+  .promotion-item2::before {
+     content:'';
+     position: absolute;
+     top: 0;
+     background: #e1e1e1;
+     width: 1px;
+     height: 100%;
+     transform: scaleX(0.8);
+  }
+  .promotion-item2 {
+    border: none;
+    position: relative;
+  }
   .promotion-item {
     width: 100%;
   }
@@ -232,14 +264,16 @@ export default {
     padding: .35rem 1.18rem;
     font-size: .25rem;
     margin: 0 auto;
-    color: #000
+    color: #000;
+    text-align: center;
   }
   .hot-spring {
     display: block;
     padding: .35rem 1.07rem;
     margin: 0 auto;
     font-size: .25rem;
-    color: #000
+    color: #000;
+    text-align: center;
   }
   .null-background {
     height: .2rem;
@@ -247,11 +281,11 @@ export default {
     background: #f5f5f5;
   }
   .discount {
-    width: 100%
+    width: 100%;
   }
   .discount-box {
     display: flex;
-    width: 100%
+    width: 100%;
   }
   .discount-water {
     width: 100%;
@@ -259,7 +293,18 @@ export default {
     background-size: auto 100%;
     padding: .7rem 0
   }
+  .discount-tickies::before {
+     content:'';
+     position: absolute;
+     top: 0;
+     background: #e1e1e1;
+     width: 1px;
+     transform: scaleX(0.8);
+     height: 100%;
+  }
   .discount-tickies {
+    border: none;
+    position: relative;
     width: 100%;
     background: url(http://img1.qunarzz.com/piao/fusion/1711/8a/4c62d1a89fc2d602.png) center center no-repeat;
     background-size: auto 100%;
@@ -286,12 +331,118 @@ export default {
     width: 100%
    }
    .hot-item-box {
-    float: left;
-    padding: .2rem;
+    display: flex;
+    padding: .24rem;
+    overflow: hidden;
+
    }
    .hot-img-con {
-    width: .7rem;
-    height: .7rem
+    overflow: hidden;
+    float: left;
    }
-  
+   .hot-item::before {
+     content:'';
+     position: absolute;
+     top: 0;
+     background: #e1e1e1;
+     width: 100%;
+     transform: scaleY(0.8);
+     height: 1px;
+  }
+   .hot-item {
+    border: none;
+    position: relative;
+    overflow:hidden;
+   }
+   .hot-introduce {
+      width: 5.22rem;
+      padding-left:.2rem;
+      text-overflow:ellipsis;
+      overflow:hidden;
+      white-space:nowrap 
+   }
+   .hitem-name {
+      color: #000;
+      padding: .05rem 0 .12rem 0;
+      text-overflow:ellipsis;
+      overflow:hidden;
+      white-space:nowrap  
+   }
+   .hitem-explain {
+      color: #9e9e9e;
+      text-overflow:ellipsis;
+      overflow:hidden;
+      white-space:nowrap
+   }
+   .hitem-price {
+      color: #ff8300;
+      font: .33rem Tahoma,Helvetica,sans-serif;
+      font-weight: 550;
+   }
+   .hitem-price-box {
+      padding-top: .1rem 
+   }
+   .qi{
+      color: #9e9e9e;
+      font-size: .24rem
+   }
+   .hot-img {
+      width: 1.4rem;
+      height: 1.4rem
+   }
+   .more {
+    border: none;
+    position: relative;
+   }
+   .more::before {
+     content:'';
+     position: absolute;
+     top: 0;
+     background: #e1e1e1;
+     width: 100%;
+     transform: scaleY(0.8);
+     height: 1px;
+   }
+   .lookat {
+    display: block;
+    text-align: center;
+    font-size: .28rem;
+    padding: .35rem 0
+   }
+   .weebendgo {
+    display: flex;
+    flex-direction: column;
+    background: #f5f5f5
+   }
+   .wherego {
+    display: block;
+    font-size: .28rem;
+    padding: .2rem 0 .2rem .2rem
+   }
+   .week-img {
+    width: 100%
+   }
+   .weekitem {
+    background: #fff;
+    overflow: hidden;
+    list-style: none;
+   }
+   .weekimg-con {
+    width: 100%;
+    overflow: hidden;
+    height: 0;
+    padding-bottom: 37%
+   }
+   .week-intro {
+     padding: .22rem 0 .3rem .2rem
+   }
+   .scenic-name {
+     display: block;
+     padding-bottom: .15rem
+   }
+   .scenic-intro {
+     display: block;
+     color: #616161;
+     font-size: .24rem
+   }
 </style>
